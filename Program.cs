@@ -92,6 +92,27 @@ void ChangeFirstRowToLastInMatrix(int[,] matrix)
     }
 }
 
+int MinSumElementsInRow(int[,] matrix)
+{
+    int minSum = int.MaxValue;
+    int minRowIndex = -1;
+
+    for (int i = 0; i < matrix.GetLength(0); i++)
+    {
+        int rowSum = 0;
+        for (int j = 0; j < matrix.GetLength(1); j++)
+            rowSum += matrix[i, j];
+
+        if (rowSum < minSum)
+        {
+            minSum = rowSum;
+            minRowIndex = i;
+        }
+    }
+
+    return minRowIndex;
+}
+
 // Задайте двумерный массив. Найдите элементы, у которых оба
 // индекса чётные, и замените эти элементы на их квадраты.
 
@@ -138,4 +159,12 @@ PrintElementOnPosition(newMatrix, 5, 5);
 ChangeFirstRowToLastInMatrix(newMatrix);
 Console.WriteLine();
 PrintMatrix(newMatrix);
+
+// Задача 3: Задайте прямоугольный двумерный массив. 
+// Напишите программу, которая будет находить строку с наименьшей суммой элементов.
+
+int[,] taskMatrix = RandomMatrix(4, 4);
+PrintMatrix(taskMatrix);
+int minRow = MinSumElementsInRow(taskMatrix);
+Console.WriteLine($"Row with the minimum sum is: {minRow}");
 
