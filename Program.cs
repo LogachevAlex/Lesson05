@@ -52,7 +52,7 @@ int SumOfDiagonalElements(int[,] matrix)
 int[] AverageElementsInRowArray(int[,] matrix)
 {
     int[] averages = new int[matrix.GetLength(0)];
-    
+
     for (int i = 0; i < matrix.GetLength(0); i++)
     {
         int sum = 0;
@@ -66,6 +66,21 @@ int[] AverageElementsInRowArray(int[,] matrix)
     return averages;
 }
 
+void PrintElementOnPosition(int[,] matrix, int row, int col)
+{
+    if (row < 0 || col < 0)
+    {
+        Console.WriteLine("Rows and Columns should be >= 0");
+        return;
+    }
+    if (row >= matrix.GetLength(0) || col >= matrix.GetLength(1))
+    {
+        Console.WriteLine("There is no such position in the matrix!");
+        return;
+    }
+
+    Console.WriteLine($"Element on position [{row}, {col}] is {matrix[row, col]}.");
+}
 
 // Задайте двумерный массив. Найдите элементы, у которых оба
 // индекса чётные, и замените эти элементы на их квадраты.
@@ -92,9 +107,17 @@ Console.WriteLine(total);
 int[] userArray = AverageElementsInRowArray(userMatrix);
 for (int i = 0; i < userArray.Length; i++)
 {
-Console.Write($"{userArray[i]} ");
+    Console.Write($"{userArray[i]} ");
 }
 
 // Задача 1: Напишите программу, которая на вход принимает позиции элемента в двумерном массиве, 
 // и возвращает значение этого элемента или же указание, что такого элемента нет.
 
+int[,] newMatrix = RandomMatrix(4, 5);
+
+Console.WriteLine();
+PrintMatrix(newMatrix);
+Console.WriteLine();
+PrintElementOnPosition(newMatrix, 3, 3);
+PrintElementOnPosition(newMatrix, -1, 2);
+PrintElementOnPosition(newMatrix, 5, 5);
