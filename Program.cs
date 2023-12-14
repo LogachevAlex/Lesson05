@@ -86,9 +86,9 @@ void ChangeFirstRowToLastInMatrix(int[,] matrix)
 {
     for (int i = 0; i < matrix.GetLength(1); i++)
     {
-        int temp = matrix[0,i];
-        matrix[0,i] = matrix[matrix.GetLength(0)-1, i];
-        matrix[matrix.GetLength(0)-1, i] = temp;
+        int temp = matrix[0, i];
+        matrix[0, i] = matrix[matrix.GetLength(0) - 1, i];
+        matrix[matrix.GetLength(0) - 1, i] = temp;
     }
 }
 
@@ -168,3 +168,58 @@ PrintMatrix(taskMatrix);
 int minRow = MinSumElementsInRow(taskMatrix);
 Console.WriteLine($"Row with the minimum sum is: {minRow}");
 
+// Задача 4*(не обязательная): Задайте двумерный массив из целых чисел. 
+// Напишите программу, которая удалит строку и столбец, на пересечении которых расположен наименьший элемент массива. 
+// Под удалением понимается создание нового двумерного массива без строки и столбца
+
+int[,] forthMatrix = RandomMatrix(6, 6);
+PrintMatrix(forthMatrix);
+
+int[,] MatrixWithRemovedRowsAndCols(int[,] matrix, int[] position)
+{
+    int rows = matrix.GetLength(0);
+    int cols = matrix.GetLength(1);
+    int[,] newMatrix = new int[rows - 1, cols - 1];
+
+    int newRow = 0;
+    for (int i = 0; i < rows; i++)
+    {
+        if (i == position[0]) continue; // Пропуск строки с минимальным элементом
+
+        int newCol = 0;
+        for (int j = 0; j < cols; j++)
+        {
+            if (j == position[1]) continue; // Пропуск столбца с минимальным элементом
+
+            newMatrix[newRow, newCol] = matrix[i, j];
+            newCol++;
+        }
+        newRow++;
+    }
+    return newMatrix;
+}
+
+int[] FindPositionOfMinElement(int[,] matrix)
+{
+    int minElement = int.MaxValue;
+    int[] array = new int[2];
+    for (int i = 0; i < matrix.GetLength(0); i++)
+    {
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+            if (minElement > matrix[i, j])
+            {
+                minElement = matrix[i, j];
+                array[0] = i;
+                array[1] = j;
+            }
+        }
+    }
+    return array;
+}
+
+int[] position = FindPositionOfMinElement(forthMatrix);
+Console.WriteLine($"{position[0]}, {position[1]}");
+int[,] fixedMatrix = MatrixWithRemovedRowsAndCols(forthMatrix, position);
+Console.WriteLine();
+PrintMatrix(fixedMatrix);
