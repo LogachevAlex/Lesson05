@@ -82,6 +82,16 @@ void PrintElementOnPosition(int[,] matrix, int row, int col)
     Console.WriteLine($"Element on position [{row}, {col}] is {matrix[row, col]}.");
 }
 
+void ChangeFirstRowToLastInMatrix(int[,] matrix)
+{
+    for (int i = 0; i < matrix.GetLength(1); i++)
+    {
+        int temp = matrix[0,i];
+        matrix[0,i] = matrix[matrix.GetLength(0)-1, i];
+        matrix[matrix.GetLength(0)-1, i] = temp;
+    }
+}
+
 // Задайте двумерный массив. Найдите элементы, у которых оба
 // индекса чётные, и замените эти элементы на их квадраты.
 
@@ -121,3 +131,11 @@ Console.WriteLine();
 PrintElementOnPosition(newMatrix, 3, 3);
 PrintElementOnPosition(newMatrix, -1, 2);
 PrintElementOnPosition(newMatrix, 5, 5);
+
+// Задача 2: Задайте двумерный массив. 
+// Напишите программу, которая поменяет местами первую и последнюю строку массива.
+
+ChangeFirstRowToLastInMatrix(newMatrix);
+Console.WriteLine();
+PrintMatrix(newMatrix);
+
